@@ -1,0 +1,7 @@
+{
+  "name": "100-Day AI Factory Master",
+  "description": "A comprehensive 100-day AI training companion app in Sinhala, designed to help factory owners digitize operations, improve communication, and master AI tools.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
