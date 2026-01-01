@@ -1,10 +1,10 @@
 import { GoogleGenAI } from "@google/genai";
 
-const apiKey = process.env.API_KEY || '';
+const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY || '';
 const ai = new GoogleGenAI({ apiKey });
 
 export const generateFactoryResponse = async (prompt: string): Promise<string> => {
-  if (!apiKey) return "API Key not configured. Please set process.env.API_KEY.";
+  if (!apiKey) return "API Key not configured. Please add your Gemini API key.";
   
   try {
     const response = await ai.models.generateContent({
