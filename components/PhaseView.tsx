@@ -11,10 +11,10 @@ const PhaseView: React.FC<PhaseViewProps> = ({ completedActivities, toggleActivi
   const [expandedPhase, setExpandedPhase] = useState<number | null>(1);
 
   return (
-    <div className="p-4 md:p-8 max-w-4xl mx-auto space-y-6">
+    <div className="min-h-screen bg-slate-600 p-4 md:p-8 max-w-4xl mx-auto space-y-6">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold font-sinhala text-slate-800">පුහුණු සැලැස්ම (Curriculum)</h2>
-        <p className="text-slate-600 font-sinhala">දින 100 ක ක්‍රියාකාරකම් මාලාව</p>
+        <h2 className="text-2xl font-bold font-sinhala text-teal-300">පුහුණු සැලැස්ම (Curriculum)</h2>
+        <p className="text-slate-300 font-sinhala">දින 100 ක ක්‍රියාකාරකම් මාලාව</p>
       </div>
 
       {CURRICULUM_DATA.map((phase) => {

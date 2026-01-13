@@ -17,6 +17,7 @@ export enum AppTab {
   DASHBOARD = 'dashboard',
   CURRICULUM = 'curriculum',
   AI_TOOLS = 'ai_tools',
+  RESOURCES = 'resources',
   SETTINGS = 'settings'
 }
 

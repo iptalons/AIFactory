@@ -53,10 +53,10 @@ const AITools: React.FC = () => {
   };
 
   return (
-    <div className="p-4 md:p-8 h-screen flex flex-col md:h-auto">
+    <div className="min-h-screen bg-slate-600 p-4 md:p-8 h-screen flex flex-col md:h-auto">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold font-sinhala text-slate-800">AI සහායක මෙවලම්</h2>
-        <p className="text-slate-600 font-sinhala">ඔබගේ කාර්යයන් පහසු කිරීමට AI භාවිතා කරන්න.</p>
+        <h2 className="text-2xl font-bold font-sinhala text-teal-300">AI සහායක මෙවලම්</h2>
+        <p className="text-slate-300 font-sinhala">ඔබගේ කාර්යයන් පහසු කිරීමට AI භාවිතා කරන්න.</p>
       </div>
 
       {/* Tool Navigation */}

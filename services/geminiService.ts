@@ -1,35 +1,42 @@
-import { GoogleGenAI } from "@google/genai";
-
-const apiKey = process.env.API_KEY || '';
-const ai = new GoogleGenAI({ apiKey });
+// Call Worker API endpoints instead of Gemini directly
+const API_BASE = ''; // Empty string means same origin (Worker)
 
 export const generateFactoryResponse = async (prompt: string): Promise<string> => {
-  if (!apiKey) return "API Key not configured. Please set process.env.API_KEY.";
-  
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: prompt,
-      config: {
-        systemInstruction: "You are a helpful, encouraging AI assistant for a Sri Lankan factory owner. You speak primarily in Sinhala, but can use English terms where appropriate for business context. Keep answers practical, simple, and related to manufacturing, business, or the specific 100-day training plan."
-      }
+    const response = await fetch(`${API_BASE}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: prompt }),
     });
-    return response.text || "ක්ෂමාවන්න, මට පිළිතුරක් ලබා දීමට නොහැකි විය. කරුණාකර නැවත උත්සාහ කරන්න.";
+
+    const data = await response.json();
+
+    if (data.error) {
+      return `දෝෂයක්: ${data.error}`;
+    }
+
+    return data.response || "ක්ෂමාවන්න, මට පිළිතුරක් ලබා දීමට නොහැකි විය.";
   } catch (error) {
-    console.error("Gemini Error:", error);
+    console.error("Chat Error:", error);
     return "දෝෂයක් සිදුවිය. කරුණාකර ඔබගේ අන්තර්ජාල සම්බන්ධතාවය පරීක්ෂා කරන්න.";
   }
 };
 
 export const translateToSinhala = async (englishText: string): Promise<string> => {
-  if (!apiKey) return "API Key missing.";
-
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: `Translate the following business text into professional but easy-to-understand Sinhala. \n\nText: ${englishText}`,
+    const response = await fetch(`${API_BASE}/api/translate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: englishText }),
     });
-    return response.text || "පරිවර්තනය අසාර්ථක විය.";
+
+    const data = await response.json();
+
+    if (data.error) {
+      return `දෝෂයක්: ${data.error}`;
+    }
+
+    return data.translation || "පරිවර්තනය අසාර්ථක විය.";
   } catch (error) {
     console.error("Translation Error:", error);
     return "පරිවර්තනය කිරීමේදී දෝෂයක් සිදුවිය.";
@@ -37,14 +44,20 @@ export const translateToSinhala = async (englishText: string): Promise<string> =
 };
 
 export const draftBusinessEmail = async (details: string): Promise<string> => {
-  if (!apiKey) return "API Key missing.";
-
   try {
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: `Write a professional business email in English based on these details (provided in Sinhala/English): "${details}". also provide a Sinhala summary of what the email says below it.`,
+    const response = await fetch(`${API_BASE}/api/email`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ details }),
     });
-    return response.text || "ලිපිය සැකසීම අසාර්ථක විය.";
+
+    const data = await response.json();
+
+    if (data.error) {
+      return `දෝෂයක්: ${data.error}`;
+    }
+
+    return data.email || "ලිපිය සැකසීම අසාර්ථක විය.";
   } catch (error) {
     console.error("Email Draft Error:", error);
     return "ලිපිය සැකසීමේදී දෝෂයක් සිදුවිය.";
